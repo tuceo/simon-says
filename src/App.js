@@ -37,7 +37,6 @@ function App() {
     }, [step]);
 
     useEffect(() => {
-        console.log(userChoices, randomOrders)
         if (userChoices.length > 0 && userChoices.length === randomOrders.length && JSON.stringify(randomOrders) === JSON.stringify(userChoices)) {
             setClassName({step: "step-success-effect"})
             setTimeout(() => {
@@ -46,8 +45,11 @@ function App() {
             }, 1000)
         }
         randomOrders?.map((item, index) => {
-            console.log("item", item,userChoices[index]);
-
+            if(userChoices[index] && item !== userChoices[index]) {
+                setIsStarted(false);
+                setRandomOrders([]);
+                setUserChoices([]);
+            }
         })
     }, [userChoices]);
 
